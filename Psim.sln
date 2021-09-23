@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psim", "Psim\Psim.csproj", "{BEA42CE0-676F-484C-B9A7-FE03122C246E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry2DUnitTests", "Geometry2DUnitTests\Geometry2DUnitTests.csproj", "{8ABC1025-79B7-4605-9539-40112471A85B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABC1025-79B7-4605-9539-40112471A85B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABC1025-79B7-4605-9539-40112471A85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABC1025-79B7-4605-9539-40112471A85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABC1025-79B7-4605-9539-40112471A85B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F51BD87-D6EC-4296-88C3-0DF8618BEA83}
+	EndGlobalSection
+EndGlobal
