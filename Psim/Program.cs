@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Psim.Geometry2D;
+using Psim.Particles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,95 +8,38 @@ using System.Threading.Tasks;
 
 namespace Psim
 {
-    namespace Geometry2D
+
+    class Program
     {
-        /// <summary>
-        /// Point class that holds the points X and Y coordinates as well as has methods to get 
-        /// points coordinates and set points coordinates
-        /// </summary>
-        public class Point
+        static void Main(string[] args)
         {
-            public double X { get; set; }
-            public double Y { get; set; }
+            Phonon p1 = new Phonon(1);
 
-            public Point() { }
-            public Point(double x = 0, double y = 0)
-            {
-                SetCoords(x, y);
-            }
+            Phonon p2 = new Phonon(p1);
 
-            public void GetCoords(out double x, out double y)
-            {
-                x = X;
-                y = Y;
-            }
+            p1.SetCoords(5, 5);
 
-            public void SetCoords(double? x, double? y)
-            {
-                X = x ?? X;
-                Y = y ?? Y;
-            }
+            p1.GetCoords(out double x, out double y);
+
+            Console.WriteLine($"Get Coords X: {x} Y: {y}");
+
+            x = 1000;
+            x = 200;
+
+
+            Console.WriteLine($"Get Coords X: {x} Y: {y}");
+
+            Console.WriteLine(p1);
+
+            p2.Position = new Point(1, 1);
+
+            Console.WriteLine(p1);
+
+            Console.WriteLine(p2);
+
+            Console.ReadKey();
         }
-
-        /// <summary>
-        /// Vector class that contains vectors DX and DY as well 
-        /// as a method to set DX and DY within a range of -1 to 1
-        /// </summary>
-        public class Vector
-        {
-            public double DX { get; private set; }
-            public double DY { get; private set; }
-
-            public Vector(double dx = 0, double dy = 0)
-            {
-                Set(dx, dy);
-            }
-
-            public void Set(double dx, double dy)
-            {
-                // Lambda function to check if value is within -1 and 1
-                bool InRange(double x) => (x >= -1 && x <= 1);
-
-                if (InRange(dx) && InRange(dy))
-                {
-                    DX = dx;
-                    DY = dy;
-                }
-                else
-                    throw new ArgumentOutOfRangeException();
-            }
-
-        }
-
-        /// <summary>
-        /// Rectangle class containing rectangles length, width, and area. 
-        /// These variables can be set only in the classes constructor
-        /// </summary>
-        public class Rectangle
-        {
-            public double Length { get; }
-            public double Width { get; }
-            public double Area { get; }
-
-            public Rectangle(double length, double width)
-            {
-                Length = length;
-                Width = width;
-
-                Area = length * width;
-            }
-
-
-        }
-
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                
-            }
-        }
-
-        
     }
+
 }
+       

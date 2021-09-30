@@ -5,3 +5,10 @@ D:\CPIN Folder\OOP 2\Psim\Psim\obj\Debug\Psim.csprojAssemblyReference.cache
 D:\CPIN Folder\OOP 2\Psim\Psim\obj\Debug\Psim.csproj.CoreCompileInputs.cache
 D:\CPIN Folder\OOP 2\Psim\Psim\obj\Debug\Psim.exe
 D:\CPIN Folder\OOP 2\Psim\Psim\obj\Debug\Psim.pdb
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.csprojAssemblyReference.cache
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.csproj.CoreCompileInputs.cache
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.exe
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.pdb
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe.config
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.pdb

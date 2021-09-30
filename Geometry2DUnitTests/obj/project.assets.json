@@ -5737,11 +5737,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CPIN Folder\\OOP 2\\Psim\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
+      "projectUniqueName": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
       "projectName": "Geometry2DUnitTests",
-      "projectPath": "D:\\CPIN Folder\\OOP 2\\Psim\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
+      "projectPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
       "packagesPath": "C:\\Users\\joshg\\.nuget\\packages\\",
-      "outputPath": "D:\\CPIN Folder\\OOP 2\\Psim\\Geometry2DUnitTests\\obj\\",
+      "outputPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\joshg\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5758,8 +5758,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\CPIN Folder\\OOP 2\\Psim\\Psim\\Psim.csproj": {
-              "projectPath": "D:\\CPIN Folder\\OOP 2\\Psim\\Psim\\Psim.csproj"
+            "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Psim\\Psim.csproj": {
+              "projectPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Psim\\Psim.csproj"
             }
           }
         }
