@@ -26,7 +26,6 @@ namespace Psim.Particles
 		/// and the speed to 0.
 		/// </summary>
 		public Particle() { }
-		
 		public Particle(Point position, Vector direction, double speed)
 		{
 			Position = position;
@@ -75,7 +74,8 @@ namespace Psim.Particles
 		/// <param name="dy">The y coordinate</param>
 		public void GetDirection(out double dx, out double dy)
 		{
-			direction.Get(out dx, out dy);
+			dx = direction.DX;
+			dy = direction.DY;
 		}
 		/// <summary>
 		/// Drifts (moves) the particle in space
@@ -83,17 +83,10 @@ namespace Psim.Particles
 		/// <param name="time">The amount of time the particle drifts</param>
 		public void Drift(double time)
 		{
-			/* At time 0,, our particle is at position (x, y) with direction (i,j) and speed (v)
-			 * if we move our particle for (t) seconds -> what will the new position be?
-			 * distance moved in x direction = i * v * t
-			 * distance moved in y direction = j * v * t
-			 */
+            position.GetCoords(out double x, out double y);
+            position.SetCoords(x + Speed * direction.DX * time, y + Speed * direction.DY * time);
 
-			// Calculate new X and Y position then set the particles variables to the new values
-			Position.X += direction.DX * Speed * time;
-            Position.Y += direction.DY * Speed * time;
-
-		}
+        }
 		/// <summary>
 		/// Gives the particle a random direction vector
 		/// </summary>
@@ -109,7 +102,7 @@ namespace Psim.Particles
 		public override string ToString()
 		{
 			return $"Position: {Position}\n" +
-				   $"Direction: {Direction}\n" +
+				   $"Direction: {Direction.DX}, {Direction.DY}\n" +
 				   $"Speed: {Speed}\n";
 		}
 	}

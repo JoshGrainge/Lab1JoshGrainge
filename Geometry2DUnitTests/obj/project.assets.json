@@ -5737,9 +5737,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
-      "projectName": "Geometry2DUnitTests",
-      "projectPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\Geometry2DUnitTests.csproj",
+      "projectUniqueName": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\LabUnitTests.csproj",
+      "projectName": "LabUnitTests",
+      "projectPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\LabUnitTests.csproj",
       "packagesPath": "C:\\Users\\joshg\\.nuget\\packages\\",
       "outputPath": "D:\\CPIN Folder\\OOP 2\\Lab1JoshGrainge\\Lab1JoshGrainge\\Geometry2DUnitTests\\obj\\",
       "projectStyle": "PackageReference",

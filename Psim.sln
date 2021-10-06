@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psim", "Psim\Psim.csproj", "{BEA42CE0-676F-484C-B9A7-FE03122C246E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geometry2DUnitTests", "Geometry2DUnitTests\Geometry2DUnitTests.csproj", "{8ABC1025-79B7-4605-9539-40112471A85B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleUnitTest", "ParticleUnitTest\ParticleUnitTest.csproj", "{561FCF5D-E5E1-4B85-B376-D5F9032D6BC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleUnitTest", "ParticleUnitTest\ParticleUnitTest.csproj", "{561FCF5D-E5E1-4B85-B376-D5F9032D6BC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA42CE0-676F-484C-B9A7-FE03122C246E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8ABC1025-79B7-4605-9539-40112471A85B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ABC1025-79B7-4605-9539-40112471A85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ABC1025-79B7-4605-9539-40112471A85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ABC1025-79B7-4605-9539-40112471A85B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{561FCF5D-E5E1-4B85-B376-D5F9032D6BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{561FCF5D-E5E1-4B85-B376-D5F9032D6BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{561FCF5D-E5E1-4B85-B376-D5F9032D6BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU

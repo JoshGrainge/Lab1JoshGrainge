@@ -1,5 +1,6 @@
 ﻿using Psim.Geometry2D;
 using Psim.Particles;
+using Psim.ModelComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,29 +14,31 @@ namespace Psim
     {
         static void Main(string[] args)
         {
-            Phonon p1 = new Phonon(1);
+            //Cell c = new Cell(10, 10);
 
-            Phonon p2 = new Phonon(p1);
+            //Phonon p = new Phonon(1);
+            //p.SetDirection(0.5, 0.5);
 
-            p1.SetCoords(5, 5);
+            //BoundarySurface s = new BoundarySurface(SurfaceLocation.left, new Cell(10,10));
 
-            p1.GetCoords(out double x, out double y);
+            Cell cell = new Cell(10, 10);
 
-            Console.WriteLine($"Get Coords X: {x} Y: {y}");
+            // Add 5 phonons
+            for (int i = 0; i < 5; i++)
+                cell.AddPhonon(new Phonon(1));
 
-            x = 1000;
-            x = 200;
+            // Add 7 incoming phonons
+            for (int i = 0; i < 7; i++)
+                cell.AddIncPhonon(new Phonon(1));
 
+            // Add existing and incoming phonons together (5+7) for a sum of 12
+            cell.MergeIncPhonons();
 
-            Console.WriteLine($"Get Coords X: {x} Y: {y}");
+            cell.ToString();
 
-            Console.WriteLine(p1);
-
-            p2.Position = new Point(1, 1);
-
-            Console.WriteLine(p1);
-
-            Console.WriteLine(p2);
+            Console.WriteLine(cell);
+            //s.HandlePhonon(p);
+            //Console.WriteLine(p);
 
             Console.ReadKey();
         }

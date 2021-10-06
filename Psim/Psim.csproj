@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
     <Compile Include="Geometry2D.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="Phonon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Surface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
