@@ -110,6 +110,7 @@ namespace ParticleUnitTest
             bool rightDirectionsAreEqual = ((rightPhonon.Direction.DX == -startDirX) && (rightPhonon.Direction.DY == startDirY));
 
             Assert.IsTrue(leftDirectionsAreEqual && rightDirectionsAreEqual);
+
         }
     }
 }

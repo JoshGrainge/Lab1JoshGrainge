@@ -12,3 +12,10 @@ D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.pdb
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe.config
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Psim.pdb
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\obj\Debug\Psim.csproj.AssemblyReference.cache
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\obj\Debug\Psim.csproj.CoreCompileInputs.cache
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\obj\Debug\Psim.exe
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\obj\Debug\Psim.pdb
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe.config
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\bin\Debug\Psim.exe
+C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\bin\Debug\Psim.pdb

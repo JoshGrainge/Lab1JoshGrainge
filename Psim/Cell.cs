@@ -9,15 +9,17 @@
  * Can you think of a clever way to remove an element from the middle of a List without having
  * to shift the memory contents of the List? 
  */
- 
+
 using System;
 using System.Collections.Generic;
 
 using Psim.Geometry2D;
 using Psim.Particles;
+using Psim.Materials;
 
 namespace Psim.ModelComponents
 {
+
 	public enum SurfaceLocation
 	{
 		left = 0,
@@ -33,14 +35,17 @@ namespace Psim.ModelComponents
 		private List<Phonon> incomingPhonons = new List<Phonon>() { };
 		private ISurface[] surfaces = new ISurface[NUM_SURFACES];
 		public List<Phonon> Phonons { get { return phonons; } }
+		private Sensor sensor;
 
-		public Cell(double length, double width)
-			: base(length, width)
+		public Cell(double length, double width, Sensor _sensor) : base(length, width)
 		{
-			// Iterate through all number of surfaces and assign the current surface to be the i-th element
-			for (int i = 0; i < NUM_SURFACES; i++)
-				surfaces[i] = new BoundarySurface((SurfaceLocation)i, this);
+			sensor = _sensor;
+			sensor.AddToArea(Area);	// Each time a cell is linked to a sensor, the area that thae sensor covers must increase
 
+			for (int i = 0; i < NUM_SURFACES; ++i)
+			{
+				surfaces[i] = new BoundarySurface((SurfaceLocation)i, this);
+			}
 		}
 
 		/// <summary>
@@ -59,6 +64,7 @@ namespace Psim.ModelComponents
 		/// <param name="p">The phonon that will be added</param>
 		public void AddIncPhonon(Phonon p)
 		{
+			// This could cause a very nasty bug later on - be sure to verify now
 			incomingPhonons.Add(p);
 		}
 
@@ -83,24 +89,78 @@ namespace Psim.ModelComponents
 
 		/// <summary>
 		/// Moves a phonon to the surface that it will impact first.
-		/// The phonon will be moved to the surface and the surface
+		/// The phonon will be moved to the surface and the surface!!!!!
 		/// it impacts is returned
 		/// </summary>
 		/// <param name="p">The phonon to be moved</param>
-		/// <returns>The surface that the phonon collides with</returns>
+		/// <returns>The surface that the phonon collides with or null if it doesnt impact surface</returns>
 		public SurfaceLocation? MoveToNearestSurface(Phonon p)
 		{
+			// Returns the time taken to for a phonon to move back into the cell or 0 if the phonon did not exit the cell
+			double GetTime(double dist, double pos, double vel)
+			{
+				if (pos <= 0) { return pos / vel; } // pos is negative therefore vel must be negative
+				else if (pos >= dist) { return (pos - dist) / vel; } // pos is + therefore vel is + and len < pos
+				else return 0; // No surface was reached
+			}
 
-            // TODO - challenging!! be cautious of floating point issues!
-            throw new NotImplementedException();
+			p.Drift(p.DriftTime);
+			p.GetCoords(out double px, out double py);
+			p.GetDirection(out double dx, out double dy);
+			double vx = dx * p.Speed;
+			double vy = dy * p.Speed;
+
+			// The longer the time, the sooner the phonon impacted the corresponding surface
+			double timeToSurfaceX = (vx != 0) ? GetTime(Length, px, vx) : 0;
+			double timeToSurfaceY = (vy != 0) ? GetTime(Width, py, vy) : 0;
+
+			// Time needed to backtrack the phonon to the first surface collision
+			double backtrackTime = Math.Max(timeToSurfaceX, timeToSurfaceY);
+			p.DriftTime = backtrackTime;
+			if (backtrackTime == 0) { return null; } // The phonon did not collide with a surface
+			p.Drift(-backtrackTime);
+
+			// Miminize FP errors and determine impacted surface
+			if (backtrackTime == timeToSurfaceX)
+			{
+				if (vx < 0)
+				{
+					p.SetCoords(0, null);
+					return SurfaceLocation.left;
+				}
+				else
+					p.SetCoords(Length, null);
+				return SurfaceLocation.right;
+			}
+			else
+			{
+				if (vy < 0)
+				{
+					p.SetCoords(null, 0);
+					return SurfaceLocation.bot;
+				}
+				else
+				{
+					p.SetCoords(null, Width);
+					return SurfaceLocation.top;
+				}
+			}
+		}
+
+		public Sensor GetSensor()
+        {
+			return sensor;
+        }
+		
+		public void TakeMeasurements(double effEnergy, double tEq)
+		{
+			sensor.TakeMeasurements(phonons, effEnergy, tEq);
 		}
 
 		public override string ToString()
 		{
-			if(phonons.Count == 0 && incomingPhonons.Count == 0)
-                return "Empty Cell";
-
-			return string.Format("{0,-7} {1,-7}", phonons.Count, incomingPhonons.Count);
+			return string.Format("{0,-20} {1,-7} {2,-7}", sensor.ToString(), phonons.Count, incomingPhonons.Count);
 		}
+
 	}
 }
