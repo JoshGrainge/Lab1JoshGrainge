@@ -59,9 +59,9 @@ namespace Psim.ModelComponents
 
 	public class TransitionSurface : BoundarySurface
 	{
-		//TODO: Implement constructor
 		public TransitionSurface(SurfaceLocation location, Cell cell) : base(location,cell)
         {
+
         }
 
 		/// <summary>

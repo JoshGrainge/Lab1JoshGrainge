@@ -46,6 +46,7 @@
     <Compile Include="Cell.cs" />
     <Compile Include="Geometry2D.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="Phonon.cs" />
     <Compile Include="Program.cs" />
