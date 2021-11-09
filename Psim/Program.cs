@@ -25,8 +25,6 @@ namespace Psim
 
             Material silicon = new Material(in dData, in rData);
 
-            // Test the AddSensor, AddCell and SetSurfaces implementations. 
-
             double highTemp = 1.425;
             double lowTemp = 0.253;
             double simTime = 1;
@@ -35,28 +33,42 @@ namespace Psim
             model.AddSensor(4, 0.5);    // Ensure adding sensor doesn't throw error
 
             // Test if duplicate throws error
-            bool testAddSensor = false;
-            if (testAddSensor)
+            try
+            {
                 model.AddSensor(4, 1);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             // Test that invalid sensor id throws error
-            bool testAddCell = false;
-            if (testAddCell)
+            try
+            {
                 model.AddCell(3, 3, 12);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
-            model.AddCell(2, 2, 4); // Test that new cell gets added and doesn't throw error
+            // Test that new cell gets added and doesn't throw error
+            model.AddCell(2, 2, 4); 
 
             // test if having too few cells throws error
-            bool testSetSurfaces = false;
-            if (testSetSurfaces)
+            try
+            {
                 model.CallSetSurfaces();
-
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             // Ensure set surfaces works with proper amount of cells (3)
             model.AddCell(2, 2, 4);
             model.CallSetSurfaces();
 
-            Console.WriteLine("Does it get here");
             Console.ReadKey();
         }
     }
