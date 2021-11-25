@@ -4,6 +4,12 @@
  * for this software. Do you think it would have been easier or harder to approach this project using a top-down approach?
  * Why do you think a bottom up approach is generally more natural when using OOP languages?
  *
+ * When in doubt, you should default to using a List. However, if you need to frequently remove items from random positions
+ * in your container, you should prefer a LinkedList. Why is this?
+ * If you do not need your container to be ordered, how can you efficiently remove items from random positions with a List?
+ * What is the advantage of taking this approach compared to simply using a LinkedList - i.e., why are List generally preferred 
+ * LinkedLists?
+ *
  */
 
 using System;
@@ -15,13 +21,13 @@ using Psim.Materials;
 namespace Psim
 {
 	// Model is comprised of a single material. Hardcoding the time step & number of phonons for now.
-	class Model
+	public class Model
 	{
 		private const double TIME_STEP = 5e-12;
 		private const int NUM_PHONONS = 10000000;
 		private Material material;
-		private List<Cell> cells = new List<Cell>(){ };
-		private List<Sensor> sensors = new List<Sensor>() { };
+		private List<Cell> cells = new List<Cell> { };
+		private List<Sensor> sensors = new List<Sensor> { };
 		private readonly double highTemp;
 		private readonly double lowTemp;
 		private readonly double simTime;
@@ -36,73 +42,65 @@ namespace Psim
 			tEq = (highTemp + lowTemp) / 2;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sensorId"></param>
-		/// <param name="initTemp"></param>
-		public void AddSensor(int sensorId, double initTemp)
-        {
-
-			// Check if sensorID already exists in 
-			foreach (Sensor sensor in sensors)
-			{
-				if (sensor.ID == sensorId)
-				{
-					throw new ArgumentException($"Sensor ID: {sensorId} is not unique");
-				}
-			}
-
-			sensors.Add(new Sensor(sensorId, material, initTemp));
+		public void RunSimulation()
+		{
+			Console.WriteLine("Run Simulation has not been implemented!");
 		}
 
-		public void AddCell(double lenght, double width, int sensorId)
-        {
-            foreach (Sensor sensor in sensors)
-            {
-				if(sensor.ID == sensorId)
-                {
-					cells.Add(new Cell(lenght, width, sensor));
+		public void AddSensor(int sensorID, double initTemp)
+		{
+			// Thanks Josh
+			foreach (Sensor sensor in sensors)
+			{
+				if (sensor.ID == sensorID)
+					throw new ArgumentException($"Sensor ID: {sensorID} is not unique.");
+			}
+			sensors.Add(new Sensor(sensorID, material, initTemp));
+		}
+
+		public void AddCell(double length, double width, int sensorID)
+		{
+			// Ensure cell dimensions are consistent for the simple version of the model - thanks Christian
+			if (cells.Count > 0)
+			{
+				if (cells[cells.Count - 1].Length != length || cells[cells.Count - 1].Width != width)
+					throw new ArgumentException($"Cell Dimentions: Cell dimention doesn't match the following: length: {cells[cells.Count - 1].Length}, width: {cells[cells.Count - 1].Width}.");
+			}
+
+			foreach (var sensor in sensors)
+			{
+				if (sensor.ID == sensorID)
+				{
+					cells.Add(new Cell(length, width, sensor));
 					sensor.AddToArea(cells[cells.Count - 1].Area);
-
-					return;
-                }
-            }
-
-			throw new ArgumentException($"Sensor ID: {sensorId} does not exist in the model");
-        }
-
-		/// <summary>
-		/// Manually calls set surfaces for testing
-		/// </summary>
-		public void CallSetSurfaces()
-        {
-			SetSurfaces(tEq);
-        }
+					return; // Minor efficiency and also to ensure the method does not throw unnecessarily
+				}
+			}
+			throw new ArgumentException($"Sensor ID: {sensorID} does not exist in the model.");
+		}
 
 		/// <summary>
 		/// Automatically sets all the surfaces in the cells that constitute this model.
 		/// Should be called after all the cells have been added
 		/// </summary>
 		/// <param name="tEq">The equilibrium temperature of the system</param>
-		private void SetSurfaces(double tEq)
+		public void SetSurfaces(double tEq)
 		{
-            int numCells = cells.Count;
-            if (numCells < 2)
-            {
-                throw new InvalidCellCount($"Number of cells is invalid to calculate set surfaces. Current cells are {cells.Count}, minimum cells needed are 2");
-            }
+			int numCells = cells.Count;
+			if (numCells < 2)
+			{
+				throw new InvalidCellCount();
+			}
 
-            cells[0].SetEmitSurface(SurfaceLocation.left, highTemp);
-            cells[0].SetTransitionSurface(SurfaceLocation.right, cells[1]);
-            for (int i = 1; i < numCells - 1; ++i)
-            {
-                cells[i].SetTransitionSurface(SurfaceLocation.left, cells[i - 1]);
-                cells[i].SetTransitionSurface(SurfaceLocation.right, cells[i + 1]);
-            }
-            cells[cells.Count - 1].SetEmitSurface(SurfaceLocation.right, lowTemp);
-            cells[cells.Count - 1].SetTransitionSurface(SurfaceLocation.left, cells[numCells - 2]);
-
+			cells[0].SetEmitSurface(SurfaceLocation.left, highTemp);
+			cells[0].SetTransitionSurface(SurfaceLocation.right, cells[1]);
+			for (int i = 1; i < numCells - 1; ++i)
+			{
+				cells[i].SetTransitionSurface(SurfaceLocation.left, cells[i - 1]);
+				cells[i].SetTransitionSurface(SurfaceLocation.right, cells[i + 1]);
+			}
+			cells[cells.Count - 1].SetEmitSurface(SurfaceLocation.right, lowTemp);
+			cells[cells.Count -1].SetTransitionSurface(SurfaceLocation.left, cells[numCells - 2]);
 		}
 
 		/// <summary>
@@ -111,10 +109,12 @@ namespace Psim
 		/// <param name="tEq">System equilibrium temperature</param>
 		/// <param name="effEnergy">Phonon packet effective energy</param>
 		/// <param name="timeStep">Simulation time step</param>
-		private void SetEmitPhonons(double tEq, double effEnergy, double timeStep)
+		public void SetEmitPhonons(double tEq, double effEnergy, double timeStep)
 		{
-            foreach (Cell cell in cells)
+			foreach (Cell cell in cells)
+			{
 				cell.SetEmitPhonons(tEq, effEnergy, timeStep);
+			}
 		}
 
 		/// <summary>
@@ -123,16 +123,32 @@ namespace Psim
 		/// <returns>Total energy generated by the model over the course of the simulation</returns>
 		private double GetTotalEnergy()
 		{
-            double emitEnergy = 0;
-            foreach (var cell in cells)
-                emitEnergy += cell.EmitEnergy(tEq, simTime) + cell.InitEnergy(tEq);
-            
+			// Thanks Andrew
+			double emitEnergy = 0;
+			foreach (var cell in cells)
+			{
+				emitEnergy += cell.EmitEnergy(tEq, simTime) + cell.InitEnergy(tEq);
+			}
 			return emitEnergy;
 		}
 
 		class InvalidCellCount : Exception
-        {
-			public InvalidCellCount(string message) : base(String.Format("Invalid Cell Count {0}", message)) {}
-        }
+		{
+			// Thanks Christian
+			public InvalidCellCount() { }
+			public InvalidCellCount(string description = "") : base(String.Format("Invalid Cell Count {0}", description)) { }
+		}
+
+		// Should be for testing only
+		public override string ToString()
+		{
+			string res = "";
+			res += $"Model total energy: {GetTotalEnergy()}\n";
+			foreach (var cell in cells)
+			{
+				res += cell.ToString() + $" {cell.TotalEmitPhonons()}" + '\n';  // generally not good practice to call ToString() directly like this but this method is meant for testing only
+			}
+			return res;
+		}
 	}
 }

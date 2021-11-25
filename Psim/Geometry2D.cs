@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Psim
 {
     namespace Geometry2D
     {
-        /// <summary>
-        /// Point class that holds the points X and Y coordinates as well as has methods to get 
-        /// points coordinates and set points coordinates
-        /// </summary>
         public class Point
         {
             public double X { get; set; }
             public double Y { get; set; }
-
-            public Point() { }
             public Point(double x = 0, double y = 0)
             {
-                SetCoords(x, y);
+                X = x;
+                Y = y;
             }
 
             public void GetCoords(out double x, out double y)
@@ -29,37 +20,43 @@ namespace Psim
                 y = Y;
             }
 
+            public void SetCoords(double x, double y)
+            {
+                X = x;
+                Y = y;
+            }
+            /// <summary>
+            /// Set the coordinates of the point. If either of the input parameters is null, then the 
+            /// corresponding point will not be changed.
+            /// </summary>
             public void SetCoords(double? x, double? y)
             {
                 X = x ?? X;
                 Y = y ?? Y;
             }
-
-            public override string ToString()
-            {
-                return $"X: {X} Y: {Y}\n" +
-                base.ToString();
-            }
+            public override string ToString() => $"({X}, {Y})\n";
         }
 
+
         /// <summary>
-        /// Vector class that contains vectors DX and DY as well 
-        /// as a method to set DX and DY within a range of -1 to 1
+        ///	A direction vector that has both an x and y component.
+        ///	Will throw if either component is not in the interval [-1, 1].
         /// </summary>
         public class Vector
         {
             public double DX { get; private set; }
             public double DY { get; private set; }
+            public Vector(double dx = 0, double dy = 0) => Set(dx, dy);
 
-            public Vector(double dx = 0, double dy = 0)
-            {
-                Set(dx, dy);
-            }
-
+            /// <summary>
+            /// Sets the x and y components of the vector.
+            /// </summary>
+            /// <param name="dx">The component of the vector in the x-direction</param>
+            /// <param name="dy">The component of the vector in the y-direction</param>
+            /// <exception cref="ArgumentOutOfRangeException"></exception>
             public void Set(double dx, double dy)
             {
-                // Lambda function to check if value is within -1 and 1
-                bool InRange(double x) => (x >= -1 && x <= 1);
+                bool InRange(double x) => x <= 1 && x >= -1;
 
                 if (InRange(dx) && InRange(dy))
                 {
@@ -67,36 +64,37 @@ namespace Psim
                     DY = dy;
                 }
                 else
-                    throw new ArgumentOutOfRangeException();
+                {
+                    throw new ArgumentOutOfRangeException("Direction components must be in the range [-1, 1]");
+                }
             }
-
-            public void Get(out double dx, out double dy)
-            {
-                dx = DX;
-                dy = DY;
-            }
-
+            public override string ToString() => $"({DX}, {DY})\n";
         }
 
         /// <summary>
-        /// Rectangle class containing rectangles length, width, and area. 
-        /// These variables can be set only in the classes constructor
-        /// </summary>
+        /// An immutable rectangle. The length and width cannot be altered after the rectangle is created.
+        /// </summary>		
         public class Rectangle
         {
             public double Length { get; }
             public double Width { get; }
             public double Area { get; }
-
             public Rectangle(double length, double width)
             {
                 Length = length;
                 Width = width;
-
-                Area = length * width;
+                Area = Length * Width;
             }
 
-
+            public Point GetRandPoint(double r1, double r2)
+            {
+                bool InRange(double x) => x <= 1 && x >= 0;
+                if (InRange(r1) && InRange(r2))
+                {
+                    return new Point(r1 * Length, r2 * Width);
+                }
+                throw new ArgumentOutOfRangeException("r1 and r2 must be in the range [0, 1]");
+            }
         }
     }
 }

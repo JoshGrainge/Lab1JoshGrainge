@@ -1,8 +1,6 @@
-﻿using System;
-
-using Psim.Particles;
-using Psim.ModelComponents;
-using Psim.Materials;
+﻿using Psim.Materials;
+using Psim.IOManagers;
+using System;
 
 namespace Psim
 {
@@ -10,6 +8,7 @@ namespace Psim
     {
         static void Main(string[] args)
         {
+#if false
             DispersionData dData;
             dData.LaData = new double[] { -2.22e-7, 9260.0, 0.0 };
             dData.TaData = new double[] { -2.28e-7, 5240.0, 0.0 };
@@ -23,51 +22,46 @@ namespace Psim
             rData.BI = 1.2e-45;
             rData.W = 2.42e13;
 
+            // Model specification
+            const int NUM_CELLS = 40;
+            const double SIM_TIME = 1e-9;
+            const double T_HIGH = 310;
+            const double T_LOW = 290;
+            const double T_INIT = (T_HIGH + T_LOW) / 2;
+            const double CELL_LENGTH = 50e-9;
+            const double CELL_WIDTH = 10e-9;
             Material silicon = new Material(in dData, in rData);
 
-            double highTemp = 1.425;
-            double lowTemp = 0.253;
-            double simTime = 1;
-            Model model = new Model(silicon, highTemp, lowTemp, simTime);
-
-            model.AddSensor(4, 0.5);    // Ensure adding sensor doesn't throw error
-
-            // Test if duplicate throws error
-            try
+            Model model = new Model(silicon, T_HIGH, T_LOW, SIM_TIME);
+            // Add sensors & cells to the model
+            for (int i = 0; i < NUM_CELLS; ++i)
             {
-                model.AddSensor(4, 1);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
+                model.AddSensor(i, T_INIT);
+                model.AddCell(CELL_LENGTH, CELL_WIDTH, i);
             }
 
-            // Test that invalid sensor id throws error
-            try
-            {
-                model.AddCell(3, 3, 12);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
 
-            // Test that new cell gets added and doesn't throw error
-            model.AddCell(2, 2, 4); 
+            model.RunSimulation();
 
-            // test if having too few cells throws error
-            try
-            {
-                model.CallSetSurfaces();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            watch.Stop();
+            System.Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds / 1000} [s]");
+#else
 
-            // Ensure set surfaces works with proper amount of cells (3)
-            model.AddCell(2, 2, 4);
-            model.CallSetSurfaces();
+            const string path = "D:/CPIN Folder/OOP 2/Lab1JoshGrainge/Lab1JoshGrainge/Psim/model.json";
+            Model model = InputManager.InitializeModel(path);
+
+			var watch = new System.Diagnostics.Stopwatch();
+			watch.Start();
+
+			model.RunSimulation();
+			Console.WriteLine(model);
+
+			watch.Stop();
+			Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds / 1000} [s]");
+
+#endif
 
             Console.ReadKey();
         }
