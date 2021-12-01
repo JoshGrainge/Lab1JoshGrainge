@@ -17,14 +17,15 @@ using System.Collections.Generic;
 
 using Psim.ModelComponents;
 using Psim.Materials;
+using Psim.IOManagers;
 
 namespace Psim
 {
-	// Model is comprised of a single material. Hardcoding the time step & number of phonons for now.
+	// Model is comprised of a single material. Hard coding the time step & number of phonons for now.
 	public class Model
 	{
-		private const double TIME_STEP = 5e-12;
-		private const int NUM_PHONONS = 10000000;
+		private const double TIME_STEP = 5e-12;   //5e-12
+		private const int NUM_PHONONS = 10000000; //10,000,000
 		private Material material;
 		private List<Cell> cells = new List<Cell> { };
 		private List<Sensor> sensors = new List<Sensor> { };
@@ -32,6 +33,7 @@ namespace Psim
 		private readonly double lowTemp;
 		private readonly double simTime;
 		private readonly double tEq;
+		private OutputManager outputManager;
 
 		public Model(Material material, double highTemp, double lowTemp, double simTime)
 		{
@@ -39,12 +41,18 @@ namespace Psim
 			this.highTemp = highTemp;
 			this.lowTemp = lowTemp;
 			this.simTime = simTime;
+			outputManager = new OutputManager((int)(simTime / TIME_STEP));
 			tEq = (highTemp + lowTemp) / 2;
 		}
 
-		public void RunSimulation()
+		public void RunSimulation(string exportPath)
 		{
-			Console.WriteLine("Run Simulation has not been implemented!");
+            SetSurfaces(tEq);
+            double totalEnergy = GetTotalEnergy();
+            double effEnergy = totalEnergy / NUM_PHONONS;
+            SetEmitPhonons(tEq, effEnergy, TIME_STEP);
+            ModelSimulator.RunSimulation(cells, tEq, effEnergy, simTime, TIME_STEP);
+            ExportResults(exportPath);
 		}
 
 		public void AddSensor(int sensorID, double initTemp)
@@ -132,7 +140,16 @@ namespace Psim
 			return emitEnergy;
 		}
 
-		class InvalidCellCount : Exception
+        private void ExportResults(string exportPath)
+        {
+            foreach (var sensor in sensors)
+            {
+                outputManager.AddMeasurement(sensor.GetMeasurements());
+            }
+            outputManager.ExportResults(exportPath);
+        }
+
+        class InvalidCellCount : Exception
 		{
 			// Thanks Christian
 			public InvalidCellCount() { }

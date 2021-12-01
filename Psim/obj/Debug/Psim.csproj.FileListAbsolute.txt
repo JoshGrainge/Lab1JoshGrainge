@@ -22,3 +22,8 @@ C:\Users\uset\Documents\GitHub\Lab1JoshGrainge\Psim\bin\Debug\Psim.pdb
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Newtonsoft.Json.dll
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\Newtonsoft.Json.xml
 D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\obj\Debug\Psim.csproj.CopyComplete
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\MoreLinq.dll
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\System.ValueTuple.dll
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\MoreLinq.pdb
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\MoreLinq.xml
+D:\CPIN Folder\OOP 2\Lab1JoshGrainge\Lab1JoshGrainge\Psim\bin\Debug\System.ValueTuple.xml
